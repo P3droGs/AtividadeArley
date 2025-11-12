@@ -14,11 +14,11 @@ const ConcursoContext = createContext<ContextType | undefined>(undefined);
 export const ConcursoProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
   const [concursoAtual, setConcursoAtual] = useState<Concurso | null | undefined>(undefined);
   const [mensagem, setMensagem] = useState<string | null>(null);
-  const api = process.env.REACT_APP_API_URL || (window as any)._env?.FRONT_API_URL || 'http://localhost:3000';
+  const api = 'http://localhost:4000';
 
   const buscarUltimo = async () => {
     try {
-      const res = await fetch(`${api}/concurso/ultimo`);
+      const res = await fetch(`${api}/`);
       if (!res.ok) throw new Error('Nenhum concurso encontrado');
       const data = await res.json();
       setConcursoAtual(data);
@@ -31,7 +31,7 @@ export const ConcursoProvider: React.FC<{children: React.ReactNode}> = ({ childr
 
   const buscarPorNumero = async (n: number) => {
     try {
-      const res = await fetch(`${api}/concurso/${n}`);
+      const res = await fetch(`${api}/${n}`);
       if (res.status === 404) {
         setConcursoAtual(null);
         setMensagem('Concurso não existe');

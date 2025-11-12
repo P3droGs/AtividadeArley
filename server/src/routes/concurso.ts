@@ -3,7 +3,7 @@ import { pool } from '../db';
 
 const router = Router();
 
-router.get('/ultimo', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM megasena ORDER BY concurso DESC LIMIT 1');
     if (result.rowCount === 0) return res.status(404).json({ message: 'Nenhum concurso encontrado' });
